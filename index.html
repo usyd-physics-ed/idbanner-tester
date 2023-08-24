@@ -110,12 +110,13 @@
      //so it will not show on the page
      //if we extend this to other days then we will need to check all dates
      if(!aocShowing && !diwShowing) document.body.style.display = "none";
-     showDIWAnimation();
+     
   }
 
   function draw() {
     // date checks are done in setup and booleans are switched
     if(aocShowing) showAOC();
+    showDIWAnimation();
   }
 
   function windowResized() {
