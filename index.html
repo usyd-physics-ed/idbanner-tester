@@ -80,6 +80,7 @@
 
   //create an element for storying a background img for static background designs
   const bgimg = document.createElement("img");
+  let backgroundSet = false;
 
   function preload(){
     myFont = loadFont('./apercu_medium_pro.otf');
@@ -228,7 +229,14 @@
     }
   }
   
-
+  function showDIWAnimation(){
+    beginTimer++;
+    if(beginTimer > 20 && beginTimer < 22) resizeCanvas(window.innerWidth, window.innerHeight);
+    if(beginTimer >30 && !backgroundSet) {
+      setDIWBackground()
+      backgroundSet = true
+    }
+  }
   
 
   function setDIWBackground(){
