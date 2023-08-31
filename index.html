@@ -13,9 +13,29 @@
       display: block;
     }
 
+   
+
     @font-face {
       font-family: 'theFont';
       src: url(apercu_medium_pro.otf);
+    }
+    
+    a{
+      text-decoration: underline;
+      text-decoration-style: dashed;
+      text-decoration-thickness: 2px;
+      font-family: theFont;
+      color: #fff;
+      text-underline-offset: 7px;
+    }
+
+    a:hover{
+      text-decoration-style: solid;
+    }
+
+    h1, h3 {
+      font-family: theFont;
+      color: #fff;
     }
 
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -111,9 +131,17 @@
   let aocShowing = false
   let diwShowing = true
 
-  //create an element for storying a background img for static background designs
+  //create an element for storing a background img for static background designs
   const bgimg = document.createElement("img");
+  const bannerImageTitle = document.createElement("h1");
+  const bannerImageSubTitle = document.createElement("h2");
+  const bannerImageArtTitle = document.createElement("h3");
+  const bannerImageArtistTitle = document.createElement("h3");
+  const textDiv = document.createElement("div");
+  const bannerTitleSize = 26;
+  
   let backgroundSet = false;
+
 
   function preload(){
     myFont = loadFont('./apercu_medium_pro.otf');
@@ -162,6 +190,12 @@
      //fontSize = width/height*fontSizeBaseUnit;
      //fontSize = constrain(fontSize,18,30)
      if(leftPadding < 0) leftPadding = 0;
+
+     if(showDIWAnimation){
+      bannerImageTitle.style.fontSize = document.body.clientWidth/bannerTitleSize +"px";
+      bannerImageSubTitle.style.fontSize = document.body.clientWidth/(bannerTitleSize+5) +"px";
+      bannerImageArtTitle.style.fontSize = document.body.clientWidth/(bannerTitleSize+25) +"px";
+     } 
      }
   } 
 
@@ -269,26 +303,60 @@
     if(beginTimer >30 && !backgroundSet) {
       setDIWBackground()
       backgroundSet = true
+    } else if(beginTimer >400){
+      document.body.style.display = "none";
     }
+    
   }
   
 
   function setDIWBackground(){
+    document.body.style.overflow = "hidden"
+    textDiv.style.position = "absolute";
+    textDiv.style.top = "20px";
+    textDiv.style.color ="#fff";
+    textDiv.style.backgroundColor ="rgba(0, 0, 0, .6) ";
+
     bgimg.src = "./assets/bannerbackground.jpg";
     bgimg.style.position = "absolute";
     bgimg.style.top = "0px";
-    document.body.style.overflow = "hidden"
+
+    bannerImageTitle.style.fontSize = document.body.clientWidth/bannerTitleSize +"px";
+    bannerImageSubTitle.style.fontSize = document.body.clientWidth/(bannerTitleSize+5) +"px";
+    bannerImageSubTitle.style.fontStyle = "italic";
+    bannerImageTitle.innerHTML = "<a href='https://www.sydney.edu.au/about-us/vision-and-values/diversity/disability-action-plan/disability-inclusion-week.html' target='_blank'>Disability Inclusion Week</a>"
+    bannerImageSubTitle.innerHTML = "Our stories, our community"
+
+    bannerImageArtTitle.style.fontSize = document.body.clientWidth/(bannerTitleSize+25) +"px";
+    bannerImageArtTitle.innerHTML = "Artwork: <br>Our Yura Our Dalang by <a href='https://msunflower.com' target='_blank'>M. Sunflower</a>"
+    bannerImageArtTitle.style.padding ="10px 40px 0px 32px";
+    
+    bannerImageTitle.style.padding ="20px 40px 0px 32px";
+    bannerImageTitle.style.margin ="0px";
+    bannerImageSubTitle.style.padding ="0px 15px 22px 32px";
+    bannerImageSubTitle.style.margin ="0px";
+
+   
+    textDiv.appendChild(bannerImageTitle)
+    textDiv.appendChild(bannerImageSubTitle)
+    textDiv.appendChild(bannerImageArtTitle)
+
     if(width>height){
       bgimg.style.width = "100%";
     } else {
       bgimg.style.height = "100%";
     }
+   
+    
     // create a new div element
     const fadeindiv = document.createElement("div");
+    fadeindiv.style.backgroundColor ="rgba(0, 0, 0, .6) ";
+    
     fadeindiv.className += "fade-in-image";
     document.body.appendChild(fadeindiv);
     fadeindiv.appendChild(bgimg);
-    //document.body.appendChild(bgimg);
+    fadeindiv.appendChild(textDiv);
+
   }
 
 </script>
